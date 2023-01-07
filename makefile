@@ -1,8 +1,8 @@
 all: isort txtfind
 isort: isort.c
-	gcc isort.c -o isort
+	gcc -Wall isort.c -o isort
 txtfind: txtfind.c
-	gcc txtfind.c -o txtfind
+	gcc -Wall txtfind.c -o txtfind
 
 clean:
 	rm -f *.o isort	txtfind
