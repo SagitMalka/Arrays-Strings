@@ -4,12 +4,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define LINE 256
 #define WORD 30
 
-int containsString(char *line, char *substring){
-    int line_length = strlen(line);
-    int substring_length = strlen(substring);
+int checkWord(char *word_to_find, int wtf_size, char *word, int word_size);
+int containsString(char *line, char *substring);
+
+// function a: print all lines contains specific substring
+void printLinesWith(char *word_to_find) {
+    char line[LINE];
+
+    fgets(line, LINE, stdin);//empty line
+
+    while (fgets(line, LINE, stdin) != NULL) {
+        if (containsString(line, word_to_find))
+            printf("%s", line);
+    }
+}
+
+//function b: find & print all words similar to string
+void printWordsWith(char *word_to_find) {
+    char buf[WORD];
+
+    while (scanf(" %s", buf) == 1) {
+        int res2 = checkWord(word_to_find, (int) strlen(word_to_find), buf, (int) strlen(buf));
+        if (res2 == 0) {
+            printf("%s\n", buf);
+        }
+    }
+}
+
+/** save and allocate memory for substring to look for */
+char *get_next_word() {
+    char *word = (char *) malloc(WORD);
+    scanf("%s", word);
+    return word;
+}
+
+int main() {
+    /**  READ COMMAND LINE */
+    char *word_to_find, *task_type;
+    word_to_find = get_next_word();
+    task_type = get_next_word();
+
+
+    /** RUN TASK */
+    if (strcmp(task_type, "a") == 0)
+        printLinesWith(word_to_find);
+    else
+        printWordsWith(word_to_find);
+
+
+    /** FREE MEMORY */
+    free(word_to_find);
+    free(task_type);
+
+    return 0;
+}
+
+int containsString(char *line, char *substring) {
+    unsigned long line_length = strlen(line);
+    unsigned long substring_length = strlen(substring);
 
     for (int i = 0; i < line_length; i++) {
         int match = 1;
@@ -23,62 +79,26 @@ int containsString(char *line, char *substring){
             return 1;
         }
     }
- return 0;
+    return 0;
 }
 
-
-
-
-int main(){
-    FILE *pfile;
-    char *line = NULL;
-    size_t length = 0;
-
-
-    //open txt file for reading
-    pfile = fopen("inputs/find_inputa.txt", "r");
-    if(pfile == NULL)
-        exit(EXIT_FAILURE);
-
-    if(getline(&line, &length, pfile) == -1){
-        printf("faild to read");
+int checkWord(char *word_to_find, int wtf_size, char *word, int word_size) {
+    if (wtf_size != word_size && wtf_size + 1 != word_size) {
         return -1;
     }
 
-    char* temp, *word_to_find, *type;
-    //save and allocate memory for substring to look for
-    temp = strtok(line, " ");
-    word_to_find = (char*) malloc(sizeof(temp));
-    strcpy(word_to_find, temp);
-
-    //save and allocate memory for function type
-    temp = strtok(NULL, "\n");
-    type = (char*) malloc(sizeof(temp));
-    strcpy(type, temp);
-
-    //function a: print all lines contains specific substring
-    if(strcmp(type, "a") == 0){
-        if(getline(&line, &length, pfile) == -1){
-            printf("faild to read");
-            return -1;
+    int one_error = 0;
+    for (int word_index = 0; word_index < word_size; ++word_index) {
+        if (*word_to_find != *word) {
+            if (one_error == 1) {
+                return -1;
+            }
+            one_error = 1;
+        } else {
+            word_to_find++;
         }
-        while (getline(&line, &length, pfile) != -1){
-            if(containsString(line, word_to_find))
-                printf("%s", line);
-        }
+        word++;
     }
 
-    //function b: find & print all words similar to string
-    void print_similar_words(char *string){
-
-    }
-    int similar(char *s, char *t, int n){
-
-    }
-
-
-
-
-    fclose(pfile);
-
+    return 0;
 }
