@@ -36,12 +36,10 @@ void insertion_sort(int* arr, int len){
 
 int main(){
     int array[SIZE_OF_ARRAY];
-    printf("Enter %d integers \n", SIZE_OF_ARRAY);
     for(int i =0; i<SIZE_OF_ARRAY; i++){
         scanf("%d", array+i);
     }
     insertion_sort(array, SIZE_OF_ARRAY);
-    printf("sorted array:\n");
     for (int i = 0; i < SIZE_OF_ARRAY-1; i++)
     {
         printf("%d,", array[i]);
