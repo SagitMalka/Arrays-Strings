@@ -4,10 +4,11 @@
  * insertion sort
 */
 
-
-/// @brief shifts i elements by one to right
-/// @param arr pointer to some place in array
-/// @param i number of elements to shift
+/**
+    @brief shifts i elements by one to right
+    @param arr pointer to some place in array
+    @param i number of elements to shift
+ */
 void shift_element (int *arr, int i){
     int n;
     for(n = i-1; n>=0; n--){
@@ -41,9 +42,10 @@ int main(){
     }
     insertion_sort(array, SIZE_OF_ARRAY);
     printf("sorted array:\n");
-    for (int i = 0; i < SIZE_OF_ARRAY; i++)
+    for (int i = 0; i < SIZE_OF_ARRAY-1; i++)
     {
         printf("%d,", array[i]);
     }
+    printf("%d\n", array[SIZE_OF_ARRAY-1]);
     return 0;
 }
