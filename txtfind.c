@@ -1,6 +1,11 @@
-//
-// Created by sagit on 1/7/23.
-//
+/**SEARCH IN TEXT USE STRING METHODS
+ * 
+ * @input text. first line: string and char 'a' or 'b'
+ * @param string would be word_to_find
+ * @param char dedcate function to run
+ * second line is empty, and third-to-end is text to search in 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,7 +16,7 @@
 int checkWord(char *word_to_find, int wtf_size, char *word, int word_size);
 int containsString(char *line, char *substring);
 
-// function a: print all lines contains specific substring
+/** function a: print all lines contains specific substring */
 void printLinesWith(char *word_to_find) {
     char line[LINE];
 
@@ -23,7 +28,7 @@ void printLinesWith(char *word_to_find) {
     }
 }
 
-//function b: find & print all words similar to string
+/** function b: find & print all words similar to string */
 void printWordsWith(char *word_to_find) {
     char buf[WORD];
 
@@ -63,6 +68,11 @@ int main() {
     return 0;
 }
 
+
+
+
+
+/**help function: find all lines contains specific substring*/
 int containsString(char *line, char *substring) {
     unsigned long line_length = strlen(line);
     unsigned long substring_length = strlen(substring);
@@ -82,6 +92,7 @@ int containsString(char *line, char *substring) {
     return 0;
 }
 
+/**help function: compare string's length and contance*/
 int checkWord(char *word_to_find, int wtf_size, char *word, int word_size) {
     if (wtf_size != word_size && wtf_size + 1 != word_size) {
         return -1;
